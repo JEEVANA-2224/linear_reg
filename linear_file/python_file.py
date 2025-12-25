@@ -20,8 +20,7 @@ st.write("Predict the final score of a student based on their performance featur
 def load_model():
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-    st.error(f"BASE_DIR = {BASE_DIR}")
-    st.error(f"FILES = {os.listdir(BASE_DIR)}")
+
 
     model_path = os.path.join(BASE_DIR, "student_model.pkl")
     scaler_path = os.path.join(BASE_DIR, "student_scaler.pkl")
