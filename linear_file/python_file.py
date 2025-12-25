@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import pickle
+from joblib import load
 import os
 
 # ----------------- Page Config -----------------
@@ -16,11 +16,8 @@ st.write("Predict the final score of a student based on their performance featur
 
 # ----------------- Load Model and Scaler -----------------
 @st.cache_resource
-@st.cache_resource
 def load_model():
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-
 
     model_path = os.path.join(BASE_DIR, "student_model.pkl")
     scaler_path = os.path.join(BASE_DIR, "student_scaler.pkl")
@@ -29,13 +26,11 @@ def load_model():
         st.error("❌ Model or Scaler file not found in the app directory.")
         st.stop()
 
-    with open(model_path, "rb") as f:
-        model = pickle.load(f)
-
-    with open(scaler_path, "rb") as f:
-        scaler = pickle.load(f)
+    model = load(model_path)
+    scaler = load(scaler_path)
 
     return model, scaler
+
 
 
 # 🔥 IMPORTANT: CALL THE FUNCTION HERE
