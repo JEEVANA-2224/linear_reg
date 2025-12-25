@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
+import os
 
 # ----------------- Page Config -----------------
 st.set_page_config(
@@ -16,14 +17,18 @@ st.write("Predict the final score of a student based on their performance featur
 # ----------------- Load Model and Scaler -----------------
 @st.cache_resource
 def load_model():
-    with open("student_model.pkl", "rb") as f:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+    model_path = os.path.join(BASE_DIR, "student_model.pkl")
+    scaler_path = os.path.join(BASE_DIR, "student_scaler.pkl")
+
+    with open(model_path, "rb") as f:
         model = pickle.load(f)
-    with open("scaler.pkl", "rb") as f:
+
+    with open(scaler_path, "rb") as f:
         scaler = pickle.load(f)
+
     return model, scaler
-
-model, scaler = load_model()
-
 # ----------------- User Input -----------------
 st.header("Enter Student Details")
 
